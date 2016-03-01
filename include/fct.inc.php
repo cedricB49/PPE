@@ -200,4 +200,20 @@ function nbErreurs(){
 	   return count($_REQUEST['erreurs']);
 	}
 }
+/**
+ * augmente la valeur de 1 
+ 
+ * @return la nouvelle valeur
+ */
+function incrementDate($date)
+{
+    $date = intval($date);
+    $date++;
+    $date = strval($date);
+    if(strlen($date) == 1)
+    {
+        $date = "0".$date;
+    }
+    return $date;
+}
 ?>

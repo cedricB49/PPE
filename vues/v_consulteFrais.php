@@ -1,42 +1,48 @@
-      <h2>Renseigner ma fiche de frais du mois <?php echo $numMois."-".$numAnnee ?></h2>
-         
+      <h2>Valider la fiche du mois <?php echo $numMois."-".$numAnnee ?>. Status : <?php echo($lesInfosFicheFrais['libEtat']) ?></h2>
+      <!-- Conservation des id et date -->
+      <?php
+        $_SESSION['currentId'] = $leVisiteur;
+        $_SESSION['currentDate'] = $leMois;
+      ?>
+      <!-- Creation du tableau pour les frais forfait  -->
       <form method="POST"  action="index.php?uc=validerFrais&action=validerFraisForfait">
       <div class="corpsForm">
-          
           <fieldset>
             <legend>Frais au forfait
             </legend>
-              
-              <?php
-              //place les données dans un tableau.
-              $valeurs = array();
-		foreach ($lesFraisForfait as $unFrais)
-		{
-                    $idFrais = $unFrais['idfrais'];
-                    $valeurs[$idFrais] = $unFrais['quantite'];
-		}
-              ?>
-              
+              <input type="hidden" name="id" value="<?php echo($leVisiteur) ?>">
+              <input type="hidden" name="date" value="<?php echo($leMois) ?>">
               <table style="color:white;" border="1">
-			<tr><th>Repas midi</th><th>Nuité </th><th>Etape</th><th>Km </th><th>Situation</th></tr>
-			<tr align="center"><td width="80" ><input type="text" size="3" name="fraisForfait[<?php echo($valeurs["$idFrais"]) ?>]" value="<?php echo($valeurs["REP"]) ?>" /></td>
-                            <td width="80"><input type="text" size="3" name="nuitee" value="<?php echo($valeurs["NUI"]) ?>" /></td> 
-                            <td width="80"> <input type="text" size="3" name="etape" value="<?php echo($valeurs["ETP"]) ?>" /></td>
-                            <td width="80"> <input type="text" size="3" name="km" value="<?php echo($valeurs["KM"]) ?>" /></td>
-                            <td width="80"> 
-				<select size="3" name="situ">
-					<option value="E">Enregistré</option>
-					<option value="V">Validé</option>
-					<option value="R">Remboursé</option>
-				</select>
-                            </td>
+                        <tr><th>Etape</th><th>Km </th><th>Nuité</th><th>Repas midi </th></tr>
+			<tr align="center">
+                            <?php
+                                //place les données dans un tableau.
+                                $valeurs = array();
+                                  foreach ($lesFraisForfait as $unFrais)
+                                  {
+                                      $idFrais = $unFrais['idfrais'];
+                                      $valeurs = $unFrais['quantite'];
+                                      ?>
+                                      <td width="80" ><input type="text" size="3" name="fraisForfait[<?php echo($idFrais) ?>]" value="<?php echo($valeurs) ?>" /></td>
+                                      <?php
+                                  }
+                            ?>
 			</tr>
             </table>
        </fieldset>
+          <p style="text-align: right">
+            <input id="ok" type="submit" value="Valider" size="20" />
+            <input id="annuler" type="reset" value="Effacer" size="20" />
+          </p> 
+      </div>
+      </form>
+      
+      <!-- Creation du tableau pour les frais hors forfait  -->
+      <div>
           <fieldset>   
                <legend>Frais hors forfait
             </legend>
-            <table style="color:white;" border="1">
+            <table class="listeLegere">
                 <caption>Descriptif des éléments hors forfait
                 </caption>
                 <tr>
@@ -45,42 +51,33 @@
                    <th>Montant</th>  
                    <th>Situation</th>              
                 </tr>
-
-             
-    <?php    
+        <?php    
 	    foreach( $lesFraisHorsForfait as $unFraisHorsForfait) 
 		{
 			$libelle = $unFraisHorsForfait['libelle'];
 			$date = $unFraisHorsForfait['date'];
 			$montant=$unFraisHorsForfait['montant'];
-			$id = $unFraisHorsForfait['id'];
-	?>		
+			$idHorsFrais = $unFraisHorsForfait['id'];
+        ?>		
             <tr>
-                <td style="color:black;" width="40"><input type="text" size="10" name="date" value="<?php echo $date ?>"/></td>
-                <td style="color:black;" width="80"><input type="text" size="50" name="libelle" value="<?php echo $libelle ?>"/></td>
-                <td style="color:black;" width="40"><input type="text" size="10" name="montant" value="<?php echo $montant ?>"/></td>
+                <td style="color:black;"><?php echo $date ?></td>
+                <td style="color:black;"><?php echo $libelle ?></td>
+                <td style="color:black;"><?php echo $montant ?></td>
                 <td width="80"> 
-                    <select size="3" name="situ">
-			<option value="E">Enregistré</option>
-			<option value="V">Validé</option>
-			<option value="R">Remboursé</option>
-                    </select></td>
+                    <a href="index.php?uc=validerFrais&action=supprimerFrais&idHorsFrais=<?php echo $idHorsFrais ?>">Supprimer</a><br>
+                    <a href="index.php?uc=validerFrais&action=reporterFrais&idHorsFrais=<?php echo $idHorsFrais ?>">Reporter</a><br>
+                </td>
              </tr>
-	<?php		 
-          
+	<?php
           }
 	?>                    
             </table>
           </fieldset>
-        
-        
+          
+          <form method="POST"  action="index.php?uc=validerFrais&action=validerFiche">
+            <input type="hidden" name="id" value="<?php echo($leVisiteur) ?>">
+            <input type="hidden" name="date" value="<?php echo($leMois) ?>">
+            <input id="ok" type="submit" value="Valider la fiche" size="20" />
+          </form>
       </div>
-      <div class="piedForm">
-      <p>
-        <input id="ok" type="submit" value="Valider" size="20" />
-        <input id="annuler" type="reset" value="Effacer" size="20" />
-      </p> 
-      </div>
-        
-      </form>
   

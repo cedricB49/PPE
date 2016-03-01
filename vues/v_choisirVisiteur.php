@@ -28,12 +28,11 @@
           <p>
             <label>Choisir la date :</label>
             <?php
-            if(isset($_REQUEST['lstMois']))
+            if(isset($_REQUEST['lstMois']) || isset($leMois))
             {
                 ?>
-                <input type="text" id="datepicker" name="lstMois" value="<?php echo($_REQUEST['lstMois']) ?>">
+                <input type="text" id="datepicker" name="lstMois" value="<?php echo($leMois) ?>">
             <?php
-            
             }else
             { ?>
                <input type="text" id="datepicker" name="lstMois" value="<?php echo(date("d/m/y")) ?>">

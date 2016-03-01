@@ -234,6 +234,75 @@ class PdoGsb{
 			PdoGsb::$monPdo->exec($req);
 		 }
 	}
+ /**
+ * Ajoute la mention "REFUSE : " en début du libellé
+ * Si le libelle est > 100, tronque la fin du libellé.
+ 
+ * @param $id : l'id du frais
+ * @param $idVisiteur : l'id du visiteur titulaire de l'enregistrement
+ * @param $idMois : la date de l'enregistrement
+*/
+        public function refuseFraisHorsForfait($id, $idVisiteur, $idMois)
+        {
+            $lesFraisHorsForfait = $this->getLesFraisHorsForfait($idVisiteur,$idMois);
+            foreach( $lesFraisHorsForfait as $unFraisHorsForfait) 
+		{
+                    $idHorsFrais = $unFraisHorsForfait['id'];
+                    if($idHorsFrais == $id)
+                    {
+                        $libelle = $unFraisHorsForfait['libelle'];
+                        break;
+                    }
+                }
+            if(strlen($libelle) > 100)
+            {
+                substr($libelle, 0, -10);
+            }
+            $libelle = "REFUSE : ".$libelle;
+            $req = "update lignefraishorsforfait set libelle = '$libelle' 
+		where lignefraishorsforfait.id = '$id'";
+		PdoGsb::$monPdo->exec($req);	
+        }
+ /**
+ * Reporte le frais hors forfait au mois suivant 
+  * et supprime la ligne pour le mois en cours.
+ 
+ * @param $id : l'id du frais
+ * @param $idVisiteur : l'id du visiteur titulaire de l'enregistrement
+ * @param $idMois : la date de l'enregistrement
+*/
+        public function reporteFraisHorsForfait($id, $idVisiteur, $idMois)
+        {
+            $lesFraisHorsForfait = $this->getLesFraisHorsForfait($idVisiteur,$idMois);
+            foreach( $lesFraisHorsForfait as $unFraisHorsForfait) 
+		{
+                    $idHorsFrais = $unFraisHorsForfait['id'];
+                    if($idHorsFrais == $id)
+                    {
+                        $idVisiteurInterne = $unFraisHorsForfait['idVisiteur'];
+                        $mois = $unFraisHorsForfait['mois'];
+                        $libelle = $unFraisHorsForfait['libelle'];
+                        $date = $unFraisHorsForfait['date'];
+                        $montant = $unFraisHorsForfait['montant'];
+                        $lannee = substr($mois, 0, 4);
+                        $leMois = substr($mois, -2, 2);
+                        $leMois = incrementDate($leMois);
+                        if(intval($leMois) > 12)
+                        {
+                            $leMois = incrementDate('0');
+                            $lannee = incrementDate($lannee);
+                        }
+                        $nextDate = $lannee.$leMois;
+                        if($this->estPremierFraisMois($idVisiteurInterne,$nextDate)){
+                            $this->creeNouvellesLignesFrais($idVisiteurInterne,$nextDate);
+                        }
+                        $this->creeNouveauFraisHorsForfait($idVisiteurInterne,$nextDate,$libelle,$date,$montant);
+                        $this->supprimerFraisHorsForfait($idHorsFrais);
+                        break;
+                    }
+                }
+        }
+
 /**
  * Crée un nouveau frais hors forfait pour un visiteur un mois donné
  * à partir des informations fournies en paramètre
