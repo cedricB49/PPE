@@ -60,6 +60,21 @@ class PdoGsb{
 		$ligne = $rs->fetch();
 		return $ligne;
 	}
+        
+   /**
+  * Retourne les informations d'un visiteur
+ 
+  * @param $login 
+  * @param $mdp
+  * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
+ */
+	public function getInfosComptable($login, $mdp){
+		$req = "select comptable.id as id, comptable.nom as nom, comptable.prenom as prenom from comptable 
+		where comptable.login='$login' and comptable.mdp='$mdp'";
+		$rs = PdoGsb::$monPdo->query($req);
+		$ligne = $rs->fetch();
+		return $ligne;
+	}
 
 /**
  * Retourne sous forme d'un tableau associatif toutes les lignes de frais hors forfait
@@ -284,6 +299,30 @@ class PdoGsb{
 		$laLigne = $res->fetch();
 		return $laLigne;
 	}
+  /**
+   * Retourne la liste des visiteurs existants
+   * 
+   * @return un tableau comprenant la liste des visiteurs disponible et leur id
+   */
+        public function getLesVisiteursDisponibles()
+        {
+            $req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom from visiteur";
+		$res = PdoGsb::$monPdo->query($req);
+		$lesVisiteurs =array();
+		$laLigne = $res->fetch();
+		while($laLigne != null)	{
+			$id = $laLigne['id'];
+                        $nom = $laLigne['nom'];
+                        $prenom = $laLigne['prenom'];
+                        $lesVisiteurs["$id"]=array(
+		     "id"=>"$id",
+		    "nom"  => "$nom",
+			"prenom"  => "$prenom"
+             );
+			$laLigne = $res->fetch(); 		
+		}
+		return $lesVisiteurs;
+        }
 /**
  * Modifie l'état et la date de modification d'une fiche de frais
  
