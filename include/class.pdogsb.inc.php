@@ -62,7 +62,7 @@ class PdoGsb{
 	}
         
    /**
-  * Retourne les informations d'un visiteur
+  * Retourne les informations d'un comptable
  
   * @param $login 
   * @param $mdp
@@ -405,5 +405,23 @@ class PdoGsb{
 		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		PdoGsb::$monPdo->exec($req);
 	}
+        
+        /**
+         * retourne les fiches dont le status correspond a celui passé en paramètre.
+         * 
+         * @param $etat
+         * @return un tableau comprenant les fiches.
+         */
+        public function getFicheFraisEtat($etat)
+        {
+            $req = "select visiteur.id as idVisiteur, ficheFrais.idEtat as idEtat, ficheFrais.dateModif as dateModif, ficheFrais.nbJustificatifs as nbJustificatifs, 
+			ficheFrais.montantValide as montantValide, ficheFrais.mois as mois, visiteur.nom as nom, visiteur.prenom as prenom 
+                        from  ficheFrais inner join visiteur on ficheFrais.idVisiteur = visiteur.id
+			where fichefrais.idEtat ='$etat'";
+            $res = PdoGsb::$monPdo->query($req);
+            $lesLigne=array();
+            $lesLigne = $res->fetchAll();
+            return $lesLigne;
+        }
 }
 ?>

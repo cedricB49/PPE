@@ -2,11 +2,26 @@
 include("vues/v_sommaireComptable.php");
 $action = $_REQUEST['action'];
 $idVisiteur = $_SESSION['idVisiteur'];
+
 switch($action){
 	case 'selectionnerVisiteur':{
+                
+                //génère la liste des visiteurs disponibles.
                 $lesVisiteurs=$pdo->getLesVisiteursDisponibles();
 		$lesCles = array_keys( $lesVisiteurs);
 		$visiteurSelectionne = $lesCles[0];
+                //clos les dernières fiches en cours.
+                foreach($lesVisiteurs as $unVisiteur)
+                {
+                    $id = $unVisiteur["id"];
+                    $dernierMois = $pdo->dernierMoisSaisi($id);
+                    $laDerniereFiche = $pdo->getLesInfosFicheFrais($id,$dernierMois);
+                    if($laDerniereFiche['idEtat']=='CR')
+                    {
+                        $pdo->majEtatFicheFrais($id, $dernierMois,'CL');
+                    }
+                }
+                //affiche la liste de selection
 		include("vues/v_choisirVisiteur.php");
 		break;
 	}
@@ -15,15 +30,35 @@ switch($action){
                 $leMois = $_REQUEST['lstMois'];
                 $numAnnee =substr( $leMois,6,4);
 		$numMois =substr( $leMois,3,2);
+                $numJour = substr($leMois,0, 2);
+                //teste $numjour pour définir le mois à afficher.
+                if(intval($numJour) < 15)
+                {
+                   $numMois = decrementDate($numMois);
+                   if(intval($numMois) < 1)
+                   {
+                       $numMois = decrementDate('13');
+                       $numAnnee = decrementDate($numAnnee);
+                   }
+                }
                 $laDate = $numAnnee.$numMois;
                 $lesVisiteurs=$pdo->getLesVisiteursDisponibles();
                 $visiteurSelectionne = $leVisiteur;
 		include("vues/v_choisirVisiteur.php");
                 //récupère les informations en vue de la création de la vue
-                $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteur,$laDate);
-		$lesFraisForfait= $pdo->getLesFraisForfait($leVisiteur,$laDate);
-		$lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($leVisiteur,$laDate);
-                include("vues/v_consulteFrais.php");
+                
+                if($pdo->estPremierFraisMois($leVisiteur, $laDate))
+                {
+                    ajouterErreur("Aucune fiche pour le mois choisi.");
+                    include("vues/v_erreurs.php");
+                }
+                else
+                {
+                    $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteur,$laDate);
+                    $lesFraisForfait= $pdo->getLesFraisForfait($leVisiteur,$laDate);
+                    $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($leVisiteur,$laDate);
+                    include("vues/v_consulteFrais.php");
+                }
                 break;
 	}
         case 'validerFraisForfait':{

@@ -216,4 +216,33 @@ function incrementDate($date)
     }
     return $date;
 }
+
+/**
+ * augmente la valeur de 1 
+ 
+ * @return la nouvelle valeur
+ */
+function decrementDate($date)
+{
+    $date = intval($date);
+    $date--;
+    $date = strval($date);
+    if(strlen($date) == 1)
+    {
+        $date = "0".$date;
+    }
+    return $date;
+}
+/**
+ * retourne une date au format mm/aaaa
+ * @param  $date : date au format aaaamm
+ * @return la date au format mm/aaaa
+ */
+function rewriteDate($date)
+{
+    $numAnnee = substr( $date,0,4);
+    $numMois = substr( $date,4,2);
+    $newDate = $numMois."/".$numAnnee;
+    return $newDate;
+}
 ?>
