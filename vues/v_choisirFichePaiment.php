@@ -1,5 +1,6 @@
 <div id="contenu">
       <h2>Suivi paiment</h2>
+        <!-- Utilise Ajax pour remplir la liste de dates au chargement de la page, puis en choisissant un client. -->
       <form id="choixFiche" method="POST" action="index.php?uc=suivrePaiment&action=voirDetailFiche" enctype="multipart/form-data">
       <div class="corpsForm">
           <p>

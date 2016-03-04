@@ -1,4 +1,4 @@
-      <h2>Valider la fiche du mois <?php echo $numMois."-".$numAnnee ?>. Status : <?php echo($lesInfosFicheFrais['libEtat']) ?></h2>
+      <h2>Valider la fiche du mois <?php echo(rewriteDate($leMois)) ?>. Status : <?php echo($lesInfosFicheFrais['libEtat']) ?></h2>
       <!-- Conservation des id et date -->
       <?php
         $_SESSION['currentId'] = $leVisiteur;
@@ -10,9 +10,7 @@
           <fieldset>
             <legend>Frais au forfait
             </legend>
-              <input type="hidden" name="id" value="<?php echo($leVisiteur) ?>">
-              <input type="hidden" name="date" value="<?php echo($leMois) ?>">
-              <table style="color:white;" border="1">
+              <table style="color:black;" border="1">
                         <tr><th>Etape</th><th>Km </th><th>Nuité</th><th>Repas midi </th></tr>
 			<tr align="center">
                             <?php
@@ -74,10 +72,25 @@
             </table>
           </fieldset>
           
-          <form method="POST"  action="index.php?uc=validerFrais&action=validerFiche">
-            <input type="hidden" name="id" value="<?php echo($leVisiteur) ?>">
-            <input type="hidden" name="date" value="<?php echo($leMois) ?>">
+        <!-- Creation du tableau pour le total des frais et nb justificatifs.  -->
+        <?php
+            $nbJustif = $lesInfosFicheFrais['nbJustificatifs'];
+            $montant = $lesInfosFicheFrais['montantValide'];
+        ?>
+        <form method="POST"  action="index.php?uc=validerFrais&action=validerFiche">
+            <fieldset>
+              <legend>Frais au forfait
+              </legend>
+                <table class="listeLegere">
+                    <tr><th>Nb justificatifs</th><th>montant</th></tr>
+                    <tr align="center">
+                    <td width="80" ><input type="text" size="5" name="nbJustif" value="<?php echo($nbJustif) ?>" /></td>
+                    <td width="80" ><input type="text" size="20" name="montantValide" value="<?php echo($montant) ?>" /></td>
+                    </tr>
+                </table>
+            </fieldset>
+          
+          
             <input id="ok" type="submit" value="Valider la fiche" size="20" />
-          </form>
+        </form>
       </div>
-  

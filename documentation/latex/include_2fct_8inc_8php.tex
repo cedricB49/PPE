@@ -1,0 +1,308 @@
+\hypertarget{include_2fct_8inc_8php}{}\section{D\+:/\+Code Softwares/wamp/www/\+P\+P\+Ecedric\+Berthome/include/fct.inc.\+php File Reference}
+\label{include_2fct_8inc_8php}\index{D\+:/\+Code Softwares/wamp/www/\+P\+P\+Ecedric\+Berthome/include/fct.\+inc.\+php@{D\+:/\+Code Softwares/wamp/www/\+P\+P\+Ecedric\+Berthome/include/fct.\+inc.\+php}}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacedefault}{default}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{include_2fct_8inc_8php_a80ca5386d53e29b2b310cb83191a9b31}{est\+Connecte} ()
+\item 
+\hyperlink{include_2fct_8inc_8php_af0c13b76bae545816b3dde95b2706a69}{connecter} (\$id, \$nom, \$prenom, \$groupe)
+\item 
+\hyperlink{include_2fct_8inc_8php_a4d9cc75d1fa3fa8dc3739f4489183489}{deconnecter} ()
+\item 
+\hyperlink{include_2fct_8inc_8php_ab9cb222b5275222fe9adc11dbbd997a3}{date\+Francais\+Vers\+Anglais} (\$ma\+Date)
+\item 
+\hyperlink{include_2fct_8inc_8php_a6e0d8dd85362ba68b76db41db62e2499}{date\+Anglais\+Vers\+Francais} (\$ma\+Date)
+\item 
+\hyperlink{include_2fct_8inc_8php_ac6b26dbc90d7a5ec71b0585ee0786a41}{get\+Mois} (\$date)
+\item 
+\hyperlink{include_2fct_8inc_8php_a5891ac42bd25b5bb5a9427174f8eb15f}{est\+Entier\+Positif} (\$valeur)
+\item 
+\hyperlink{include_2fct_8inc_8php_a464609600321021614adc67242caff02}{est\+Tableau\+Entiers} (\$tab\+Entiers)
+\item 
+\hyperlink{include_2fct_8inc_8php_aa58c871e5f6cd7d51b1e8b88843f7fb1}{est\+Date\+Depassee} (\$date\+Testee)
+\item 
+\hyperlink{include_2fct_8inc_8php_a7fa9e2b0f911f71f0dc3857201676f6e}{est\+Date\+Valide} (\$date)
+\item 
+\hyperlink{include_2fct_8inc_8php_a5eaa55cf65e9070bec3a3966f5294f2a}{les\+Qte\+Frais\+Valides} (\$les\+Frais)
+\item 
+\hyperlink{include_2fct_8inc_8php_a38c2c9e2e53aebdd24c6cce15666893f}{valide\+Infos\+Frais} (\$date\+Frais, \$libelle, \$montant)
+\item 
+\hyperlink{include_2fct_8inc_8php_a9ebfa4d6e8d836827ddb02455281e5c1}{ajouter\+Erreur} (\$msg)
+\item 
+\hyperlink{include_2fct_8inc_8php_abc3600d37e9484937ea976542eabec4b}{nb\+Erreurs} ()
+\item 
+\hyperlink{include_2fct_8inc_8php_a500951c5359c6741f0dc25e1334db846}{increment\+Date} (\$date)
+\item 
+\hyperlink{include_2fct_8inc_8php_aacac1f06f35d6fa7027a7c7366db5f4a}{decrement\+Date} (\$date)
+\item 
+\hyperlink{include_2fct_8inc_8php_a34a7a40a326c04712f5c8aea4d6afd86}{rewrite\+Date} (\$date)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!ajouter\+Erreur@{ajouter\+Erreur}}
+\index{ajouter\+Erreur@{ajouter\+Erreur}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{ajouter\+Erreur(\$msg)}{ajouterErreur($msg)}}]{\setlength{\rightskip}{0pt plus 5cm}ajouter\+Erreur (
+\begin{DoxyParamCaption}
+\item[{}]{\$msg}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_a9ebfa4d6e8d836827ddb02455281e5c1}{}\label{include_2fct_8inc_8php_a9ebfa4d6e8d836827ddb02455281e5c1}
+Ajoute le libellé d\textquotesingle{}une erreur au tableau des erreurs
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$msg} & \+: le libellé de l\textquotesingle{}erreur \\
+\hline
+\end{DoxyParams}
+\index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!connecter@{connecter}}
+\index{connecter@{connecter}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{connecter(\$id, \$nom, \$prenom, \$groupe)}{connecter($id, $nom, $prenom, $groupe)}}]{\setlength{\rightskip}{0pt plus 5cm}connecter (
+\begin{DoxyParamCaption}
+\item[{}]{\$id, }
+\item[{}]{\$nom, }
+\item[{}]{\$prenom, }
+\item[{}]{\$groupe}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_af0c13b76bae545816b3dde95b2706a69}{}\label{include_2fct_8inc_8php_af0c13b76bae545816b3dde95b2706a69}
+Enregistre dans une variable session les infos d\textquotesingle{}un visiteur
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$id} & \\
+\hline
+{\em \$nom} & \\
+\hline
+{\em \$prenom} & \\
+\hline
+\end{DoxyParams}
+\index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!date\+Anglais\+Vers\+Francais@{date\+Anglais\+Vers\+Francais}}
+\index{date\+Anglais\+Vers\+Francais@{date\+Anglais\+Vers\+Francais}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{date\+Anglais\+Vers\+Francais(\$ma\+Date)}{dateAnglaisVersFrancais($maDate)}}]{\setlength{\rightskip}{0pt plus 5cm}date\+Anglais\+Vers\+Francais (
+\begin{DoxyParamCaption}
+\item[{}]{\$ma\+Date}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_a6e0d8dd85362ba68b76db41db62e2499}{}\label{include_2fct_8inc_8php_a6e0d8dd85362ba68b76db41db62e2499}
+Transforme une date au format format anglais aaaa-\/mm-\/jj vers le format français jj/mm/aaaa
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$madate} & au format aaaa-\/mm-\/jj \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+la date au format format français jj/mm/aaaa 
+\end{DoxyReturn}
+\index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!date\+Francais\+Vers\+Anglais@{date\+Francais\+Vers\+Anglais}}
+\index{date\+Francais\+Vers\+Anglais@{date\+Francais\+Vers\+Anglais}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{date\+Francais\+Vers\+Anglais(\$ma\+Date)}{dateFrancaisVersAnglais($maDate)}}]{\setlength{\rightskip}{0pt plus 5cm}date\+Francais\+Vers\+Anglais (
+\begin{DoxyParamCaption}
+\item[{}]{\$ma\+Date}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_ab9cb222b5275222fe9adc11dbbd997a3}{}\label{include_2fct_8inc_8php_ab9cb222b5275222fe9adc11dbbd997a3}
+Transforme une date au format français jj/mm/aaaa vers le format anglais aaaa-\/mm-\/jj
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$madate} & au format jj/mm/aaaa \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+la date au format anglais aaaa-\/mm-\/jj 
+\end{DoxyReturn}
+\index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!deconnecter@{deconnecter}}
+\index{deconnecter@{deconnecter}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{deconnecter()}{deconnecter()}}]{\setlength{\rightskip}{0pt plus 5cm}deconnecter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_a4d9cc75d1fa3fa8dc3739f4489183489}{}\label{include_2fct_8inc_8php_a4d9cc75d1fa3fa8dc3739f4489183489}
+Détruit la session active \index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!decrement\+Date@{decrement\+Date}}
+\index{decrement\+Date@{decrement\+Date}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{decrement\+Date(\$date)}{decrementDate($date)}}]{\setlength{\rightskip}{0pt plus 5cm}decrement\+Date (
+\begin{DoxyParamCaption}
+\item[{}]{\$date}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_aacac1f06f35d6fa7027a7c7366db5f4a}{}\label{include_2fct_8inc_8php_aacac1f06f35d6fa7027a7c7366db5f4a}
+augmente la valeur de 1
+
+\begin{DoxyReturn}{Returns}
+la nouvelle valeur 
+\end{DoxyReturn}
+\index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!est\+Connecte@{est\+Connecte}}
+\index{est\+Connecte@{est\+Connecte}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{est\+Connecte()}{estConnecte()}}]{\setlength{\rightskip}{0pt plus 5cm}est\+Connecte (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_a80ca5386d53e29b2b310cb83191a9b31}{}\label{include_2fct_8inc_8php_a80ca5386d53e29b2b310cb83191a9b31}
+Teste si un quelconque visiteur est connecté \begin{DoxyReturn}{Returns}
+vrai ou faux 
+\end{DoxyReturn}
+\index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!est\+Date\+Depassee@{est\+Date\+Depassee}}
+\index{est\+Date\+Depassee@{est\+Date\+Depassee}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{est\+Date\+Depassee(\$date\+Testee)}{estDateDepassee($dateTestee)}}]{\setlength{\rightskip}{0pt plus 5cm}est\+Date\+Depassee (
+\begin{DoxyParamCaption}
+\item[{}]{\$date\+Testee}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_aa58c871e5f6cd7d51b1e8b88843f7fb1}{}\label{include_2fct_8inc_8php_aa58c871e5f6cd7d51b1e8b88843f7fb1}
+Vérifie si une date est inférieure d\textquotesingle{}un an à la date actuelle
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$date\+Testee} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vrai ou faux 
+\end{DoxyReturn}
+\index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!est\+Date\+Valide@{est\+Date\+Valide}}
+\index{est\+Date\+Valide@{est\+Date\+Valide}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{est\+Date\+Valide(\$date)}{estDateValide($date)}}]{\setlength{\rightskip}{0pt plus 5cm}est\+Date\+Valide (
+\begin{DoxyParamCaption}
+\item[{}]{\$date}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_a7fa9e2b0f911f71f0dc3857201676f6e}{}\label{include_2fct_8inc_8php_a7fa9e2b0f911f71f0dc3857201676f6e}
+Vérifie la validité du format d\textquotesingle{}une date française jj/mm/aaaa
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$date} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vrai ou faux 
+\end{DoxyReturn}
+\index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!est\+Entier\+Positif@{est\+Entier\+Positif}}
+\index{est\+Entier\+Positif@{est\+Entier\+Positif}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{est\+Entier\+Positif(\$valeur)}{estEntierPositif($valeur)}}]{\setlength{\rightskip}{0pt plus 5cm}est\+Entier\+Positif (
+\begin{DoxyParamCaption}
+\item[{}]{\$valeur}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_a5891ac42bd25b5bb5a9427174f8eb15f}{}\label{include_2fct_8inc_8php_a5891ac42bd25b5bb5a9427174f8eb15f}
+Indique si une valeur est un entier positif ou nul
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$valeur} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vrai ou faux 
+\end{DoxyReturn}
+\index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!est\+Tableau\+Entiers@{est\+Tableau\+Entiers}}
+\index{est\+Tableau\+Entiers@{est\+Tableau\+Entiers}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{est\+Tableau\+Entiers(\$tab\+Entiers)}{estTableauEntiers($tabEntiers)}}]{\setlength{\rightskip}{0pt plus 5cm}est\+Tableau\+Entiers (
+\begin{DoxyParamCaption}
+\item[{}]{\$tab\+Entiers}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_a464609600321021614adc67242caff02}{}\label{include_2fct_8inc_8php_a464609600321021614adc67242caff02}
+Indique si un tableau de valeurs est constitué d\textquotesingle{}entiers positifs ou nuls
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$tab\+Entiers} & \+: le tableau \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vrai ou faux 
+\end{DoxyReturn}
+\index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!get\+Mois@{get\+Mois}}
+\index{get\+Mois@{get\+Mois}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{get\+Mois(\$date)}{getMois($date)}}]{\setlength{\rightskip}{0pt plus 5cm}get\+Mois (
+\begin{DoxyParamCaption}
+\item[{}]{\$date}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_ac6b26dbc90d7a5ec71b0585ee0786a41}{}\label{include_2fct_8inc_8php_ac6b26dbc90d7a5ec71b0585ee0786a41}
+retourne le mois au format aaaamm selon le jour dans le mois
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$date} & au format jj/mm/aaaa \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+le mois au format aaaamm 
+\end{DoxyReturn}
+\index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!increment\+Date@{increment\+Date}}
+\index{increment\+Date@{increment\+Date}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{increment\+Date(\$date)}{incrementDate($date)}}]{\setlength{\rightskip}{0pt plus 5cm}increment\+Date (
+\begin{DoxyParamCaption}
+\item[{}]{\$date}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_a500951c5359c6741f0dc25e1334db846}{}\label{include_2fct_8inc_8php_a500951c5359c6741f0dc25e1334db846}
+augmente la valeur de 1
+
+\begin{DoxyReturn}{Returns}
+la nouvelle valeur 
+\end{DoxyReturn}
+\index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!les\+Qte\+Frais\+Valides@{les\+Qte\+Frais\+Valides}}
+\index{les\+Qte\+Frais\+Valides@{les\+Qte\+Frais\+Valides}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{les\+Qte\+Frais\+Valides(\$les\+Frais)}{lesQteFraisValides($lesFrais)}}]{\setlength{\rightskip}{0pt plus 5cm}les\+Qte\+Frais\+Valides (
+\begin{DoxyParamCaption}
+\item[{}]{\$les\+Frais}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_a5eaa55cf65e9070bec3a3966f5294f2a}{}\label{include_2fct_8inc_8php_a5eaa55cf65e9070bec3a3966f5294f2a}
+Vérifie que le tableau de frais ne contient que des valeurs numériques
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$les\+Frais} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vrai ou faux 
+\end{DoxyReturn}
+\index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!nb\+Erreurs@{nb\+Erreurs}}
+\index{nb\+Erreurs@{nb\+Erreurs}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{nb\+Erreurs()}{nbErreurs()}}]{\setlength{\rightskip}{0pt plus 5cm}nb\+Erreurs (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_abc3600d37e9484937ea976542eabec4b}{}\label{include_2fct_8inc_8php_abc3600d37e9484937ea976542eabec4b}
+Retoune le nombre de lignes du tableau des erreurs
+
+\begin{DoxyReturn}{Returns}
+le nombre d\textquotesingle{}erreurs 
+\end{DoxyReturn}
+\index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!rewrite\+Date@{rewrite\+Date}}
+\index{rewrite\+Date@{rewrite\+Date}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{rewrite\+Date(\$date)}{rewriteDate($date)}}]{\setlength{\rightskip}{0pt plus 5cm}rewrite\+Date (
+\begin{DoxyParamCaption}
+\item[{}]{\$date}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_a34a7a40a326c04712f5c8aea4d6afd86}{}\label{include_2fct_8inc_8php_a34a7a40a326c04712f5c8aea4d6afd86}
+retourne une date au format mm/aaaa 
+\begin{DoxyParams}{Parameters}
+{\em \$date} & \+: date au format aaaamm \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+la date au format mm/aaaa 
+\end{DoxyReturn}
+\index{include/fct.\+inc.\+php@{include/fct.\+inc.\+php}!valide\+Infos\+Frais@{valide\+Infos\+Frais}}
+\index{valide\+Infos\+Frais@{valide\+Infos\+Frais}!include/fct.\+inc.\+php@{include/fct.\+inc.\+php}}
+\subsubsection[{\texorpdfstring{valide\+Infos\+Frais(\$date\+Frais, \$libelle, \$montant)}{valideInfosFrais($dateFrais, $libelle, $montant)}}]{\setlength{\rightskip}{0pt plus 5cm}valide\+Infos\+Frais (
+\begin{DoxyParamCaption}
+\item[{}]{\$date\+Frais, }
+\item[{}]{\$libelle, }
+\item[{}]{\$montant}
+\end{DoxyParamCaption}
+)}\hypertarget{include_2fct_8inc_8php_a38c2c9e2e53aebdd24c6cce15666893f}{}\label{include_2fct_8inc_8php_a38c2c9e2e53aebdd24c6cce15666893f}
+Vérifie la validité des trois arguments \+: la date, le libellé du frais et le montant
+
+des message d\textquotesingle{}erreurs sont ajoutés au tableau des erreurs
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$date\+Frais} & \\
+\hline
+{\em \$libelle} & \\
+\hline
+{\em \$montant} & \\
+\hline
+\end{DoxyParams}
