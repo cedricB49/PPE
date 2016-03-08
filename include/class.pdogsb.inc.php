@@ -54,23 +54,8 @@ class PdoGsb{
  * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
 */
 	public function getInfosVisiteur($login, $mdp){
-		$req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom from visiteur 
+		$req = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, visiteur.status as groupe from visiteur 
 		where visiteur.login='$login' and visiteur.mdp='$mdp'";
-		$rs = PdoGsb::$monPdo->query($req);
-		$ligne = $rs->fetch();
-		return $ligne;
-	}
-        
-   /**
-  * Retourne les informations d'un comptable
- 
-  * @param $login 
-  * @param $mdp
-  * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
- */
-	public function getInfosComptable($login, $mdp){
-		$req = "select comptable.id as id, comptable.nom as nom, comptable.prenom as prenom from comptable 
-		where comptable.login='$login' and comptable.mdp='$mdp'";
 		$rs = PdoGsb::$monPdo->query($req);
 		$ligne = $rs->fetch();
 		return $ligne;
@@ -121,7 +106,7 @@ class PdoGsb{
  * @return l'id, le libelle et la quantité sous la forme d'un tableau associatif 
 */
 	public function getLesFraisForfait($idVisiteur, $mois){
-		$req = "select fraisforfait.id as idfrais, fraisforfait.libelle as libelle, 
+		$req = "select fraisforfait.id as idfrais, fraisforfait.libelle as libelle, fraisforfait.montant as montant,
 		lignefraisforfait.quantite as quantite from lignefraisforfait inner join fraisforfait 
 		on fraisforfait.id = lignefraisforfait.idfraisforfait
 		where lignefraisforfait.idvisiteur ='$idVisiteur' and lignefraisforfait.mois='$mois' 
@@ -402,6 +387,19 @@ class PdoGsb{
  
 	public function majEtatFicheFrais($idVisiteur,$mois,$etat){
 		$req = "update ficheFrais set idEtat = '$etat', dateModif = now() 
+		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
+		PdoGsb::$monPdo->exec($req);
+	}
+        
+        /**
+         * Met le montantValide à jour dans la table fichefrais pour le visiteur et date indiquée.
+         * 
+         * @param type $idVisiteur
+         * @param type $mois au format aaaamm
+         * @param type $montant
+         */
+        public function majMontantFicheFrais($idVisiteur,$mois, $montant){
+		$req = "update ficheFrais set montantValide = '$montant', dateModif = now() 
 		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		PdoGsb::$monPdo->exec($req);
 	}

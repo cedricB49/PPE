@@ -49,6 +49,22 @@
         ?>                    
         </table>
     </fieldset>
+    
+    <fieldset>
+              <legend>Total frais
+              </legend>
+                <table class="listeLegere">
+                    <?php 
+                        $nbJustif = $lesInfosFicheFrais['nbJustificatifs'];
+                        $montant = $lesInfosFicheFrais['montantValide'];
+                    ?>
+                    <tr><th>Nb justificatifs</th><th>montant total</th></tr>
+                    <tr align="center">
+                    <td width="80" ><label><?php echo($nbJustif) ?></label></td>
+                    <td width="80" ><label><?php echo($montant) ?></label></td>
+                    </tr>
+                </table>
+            </fieldset>
 
     <form method="POST" action="index.php?uc=suivrePaiment&action=ValiderFiche">
       <input id="ok" type="submit" name="btnValider" value="Valider" size="20" />

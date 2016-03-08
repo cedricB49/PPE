@@ -3,6 +3,7 @@
       <?php
         $_SESSION['currentId'] = $leVisiteur;
         $_SESSION['currentDate'] = $leMois;
+        $total = 0;
       ?>
       <!-- Creation du tableau pour les frais forfait  -->
       <form method="POST"  action="index.php?uc=validerFrais&action=validerFraisForfait">
@@ -16,14 +17,15 @@
                             <?php
                                 //place les données dans un tableau.
                                 $valeurs = array();
-                                  foreach ($lesFraisForfait as $unFrais)
-                                  {
-                                      $idFrais = $unFrais['idfrais'];
-                                      $valeurs = $unFrais['quantite'];
-                                      ?>
-                                      <td width="80" ><input type="text" size="3" name="fraisForfait[<?php echo($idFrais) ?>]" value="<?php echo($valeurs) ?>" /></td>
-                                      <?php
-                                  }
+                                foreach ($lesFraisForfait as $unFrais)
+                                {
+                                    $idFrais = $unFrais['idfrais'];
+                                    $valeurs = $unFrais['quantite'];
+                                    $total += $valeurs * $unFrais['montant'];
+                                    ?>
+                                    <td width="80" ><input type="text" size="3" name="fraisForfait[<?php echo($idFrais) ?>]" value="<?php echo($valeurs) ?>" /></td>
+                                    <?php
+                                }
                             ?>
 			</tr>
             </table>
@@ -50,12 +52,14 @@
                    <th>Situation</th>              
                 </tr>
         <?php    
-	    foreach( $lesFraisHorsForfait as $unFraisHorsForfait) 
+	    
+            foreach( $lesFraisHorsForfait as $unFraisHorsForfait) 
 		{
-			$libelle = $unFraisHorsForfait['libelle'];
-			$date = $unFraisHorsForfait['date'];
-			$montant=$unFraisHorsForfait['montant'];
-			$idHorsFrais = $unFraisHorsForfait['id'];
+                    $libelle = $unFraisHorsForfait['libelle'];
+                    $date = $unFraisHorsForfait['date'];
+                    $montant=$unFraisHorsForfait['montant'];
+                    $idHorsFrais = $unFraisHorsForfait['id'];
+                    $total += $montant;
         ?>		
             <tr>
                 <td style="color:black;"><?php echo $date ?></td>
@@ -79,13 +83,14 @@
         ?>
         <form method="POST"  action="index.php?uc=validerFrais&action=validerFiche">
             <fieldset>
-              <legend>Frais au forfait
+              <legend>Calcul frais
               </legend>
                 <table class="listeLegere">
-                    <tr><th>Nb justificatifs</th><th>montant</th></tr>
+                    <tr><th>Nb justificatifs</th><th>montant enregistré</th><th>montant calculé</th></tr>
                     <tr align="center">
                     <td width="80" ><input type="text" size="5" name="nbJustif" value="<?php echo($nbJustif) ?>" /></td>
-                    <td width="80" ><input type="text" size="20" name="montantValide" value="<?php echo($montant) ?>" /></td>
+                    <td width="80" ><label><?php echo($montant) ?></label></td>
+                    <td width="80" ><input type="text" size="20" name="montantCalcul" value="<?php echo($total) ?>" /></td>
                     </tr>
                 </table>
             </fieldset>

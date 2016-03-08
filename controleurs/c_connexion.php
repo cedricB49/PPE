@@ -11,41 +11,33 @@ switch($action){
 	case 'valideConnexion':{
 		$login = $_REQUEST['login'];
 		$mdp = $_REQUEST['mdp'];
-                $groupe = $_REQUEST['groupe'];
-                if ($groupe == "visiteur")
+                $visiteur = $pdo->getInfosVisiteur($login,$mdp);
+                if(!is_array( $visiteur))
                 {
-                    $visiteur = $pdo->getInfosVisiteur($login,$mdp);
-                    if(!is_array( $visiteur)){
-                            ajouterErreur("Login ou mot de passe incorrect");
-                            include("vues/v_erreurs.php");
-                            include("vues/v_connexion.php");
+                    ajouterErreur("Login ou mot de passe incorrect");
+                    include("vues/v_erreurs.php");
+                    include("vues/v_connexion.php");
+                }
+                else{
+                    $groupe = $visiteur['groupe'];   
+                    if ($groupe == "visiteur")
+                    {
+                        $id = $visiteur['id'];
+                        $nom =  $visiteur['nom'];
+                        $prenom = $visiteur['prenom'];
+                        connecter($id,$nom,$prenom, $groupe);
+                        include("vues/v_sommaire.php");
                     }
-                    else{
-                            $id = $visiteur['id'];
-                            $nom =  $visiteur['nom'];
-                            $prenom = $visiteur['prenom'];
-                            connecter($id,$nom,$prenom, $groupe);
-                            include("vues/v_sommaire.php");
+                    else if ($groupe == "comptable")
+                    {
+                        $id = $visiteur['id'];
+                        $nom =  $visiteur['nom'];
+                        $prenom = $visiteur['prenom'];
+                        connecter($id,$nom,$prenom, $groupe);
+                        include("vues/v_sommaireComptable.php");
                     }
                 }
-                else if ($groupe == "comptable")
-                {
-                    $comptable = $pdo->getInfosComptable($login,$mdp);
-                    if(!is_array( $comptable)){
-                            ajouterErreur("Login ou mot de passe incorrect");
-                            include("vues/v_erreurs.php");
-                            include("vues/v_connexion.php");
-                    }
-                    else{
-                            $id = $comptable['id'];
-                            $nom =  $comptable['nom'];
-                            $prenom = $comptable['prenom'];
-                            connecter($id,$nom,$prenom, $groupe);
-                            include("vues/v_sommaireComptable.php");
-                    }
-                }
-		
-		break;
+            break;
 	}
 	default :{
 		include("vues/v_connexion.php");

@@ -1,13 +1,17 @@
 <?php
     include("vues/v_sommaireComptable.php");
     $action = $_REQUEST['action'];
-    $idVisiteur = $_SESSION['idVisiteur'];
+    if(isset($_SESSION['idVisiteur']))
+    {
+        $idVisiteur = $_SESSION['idVisiteur'];
+    }
+    $lesVisiteurs=$pdo->getLesVisiteursDisponibles();
+    
 
     switch($action)
     {
         case 'selectionnerFiche':
         {
-            $lesVisiteurs=$pdo->getLesVisiteursDisponibles();
             $lesCles = array_keys( $lesVisiteurs);
             $idSelectionne = $lesCles[0];
             include("vues/v_choisirFichePaiment.php");
@@ -21,7 +25,6 @@
             $_SESSION['idVisiteur'] = $idVisiteur;
             $_SESSION['currentDate'] = $date;
             $idSelectionne = $_SESSION['idVisiteur'];
-            $lesVisiteurs=$pdo->getLesVisiteursDisponibles();
             include("vues/v_choisirFichePaiment.php");
             //recupère détail fiches
             $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idSelectionne,$date);
@@ -35,7 +38,6 @@
         {
             $choix = $_POST["btnValider"];
             $idSelectionne = $_SESSION['idVisiteur'];
-            $lesVisiteurs=$pdo->getLesVisiteursDisponibles();
             $date = $_SESSION['currentDate'];
             include("vues/v_choisirFichePaiment.php");
             //passage de la fiche au status validé.

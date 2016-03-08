@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['nberreurs',['nbErreurs',['../include_2fct_8inc_8php.html#abc3600d37e9484937ea976542eabec4b',1,'fct.inc.php']]]
+  ['lesqtefraisvalides',['lesQteFraisValides',['../include_2fct_8inc_8php.html#a5eaa55cf65e9070bec3a3966f5294f2a',1,'fct.inc.php']]],
+  ['localstoragesupported',['localStorageSupported',['../navtree_8js.html#ac49af616f532f2364be9f58280469d33',1,'navtree.js']]]
 ];

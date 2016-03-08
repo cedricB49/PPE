@@ -3,11 +3,12 @@ include("vues/v_sommaireComptable.php");
 $action = $_REQUEST['action'];
 $idVisiteur = $_SESSION['idVisiteur'];
 
+$lesVisiteurs=$pdo->getLesVisiteursDisponibles();
+
 switch($action){
 	case 'selectionnerVisiteur':{
                 
                 //génère la liste des visiteurs disponibles.
-                $lesVisiteurs=$pdo->getLesVisiteursDisponibles();
 		$lesCles = array_keys( $lesVisiteurs);
 		$visiteurSelectionne = $lesCles[0];
                 //clos les dernières fiches en cours.
@@ -30,7 +31,6 @@ switch($action){
                 $leMois = $_REQUEST['lstDates'];
                 $_SESSION['currentDate'] = $leMois;
                 $_SESSION['idVisiteur'] = $leVisiteur;
-                $lesVisiteurs=$pdo->getLesVisiteursDisponibles();
                 $visiteurSelectionne = $leVisiteur;
 		include("vues/v_choisirVisiteur.php");
                 //récupère les informations en vue de la création de la vue
@@ -52,7 +52,6 @@ switch($action){
         case 'validerFraisForfait':{
                 $leVisiteur = $_SESSION['idVisiteur'];
                 $leMois = $_SESSION['currentDate'];
-                $lesVisiteurs=$pdo->getLesVisiteursDisponibles();
                 $visiteurSelectionne = $leVisiteur;
 		include("vues/v_choisirVisiteur.php");
                 //mise à jour des informations forfaits dans la bdd
@@ -75,9 +74,12 @@ switch($action){
         case 'validerFiche':{
                 $leVisiteur = $_SESSION['idVisiteur'];
                 $leMois = $_SESSION['currentDate'];
-                $lesVisiteurs=$pdo->getLesVisiteursDisponibles();
+                $nbJustif = $_POST['nbJustif'];
+                $montant = $_POST['montantCalcul'];
                 $visiteurSelectionne = $leVisiteur;
-                //passage de la fiche au status validé.
+                //passage de la fiche au status validé et maj du montant et nb justificatifs.
+                $pdo->majNbJustificatifs($leVisiteur, $leMois, $nbJustif);
+                $pdo->majMontantFicheFrais($leVisiteur, $leMois, $montant);
                 $pdo->majEtatFicheFrais($leVisiteur,$leMois, "VA");
 		include("vues/v_choisirVisiteur.php");
                 //récupère les informations en vue de la création de la vue
@@ -91,7 +93,6 @@ switch($action){
         case 'supprimerFrais':{
                 $leVisiteur = $_SESSION['currentId'];
                 $leMois = $_SESSION['currentDate'];
-                $lesVisiteurs=$pdo->getLesVisiteursDisponibles();
                 $visiteurSelectionne = $leVisiteur;
                 include("vues/v_choisirVisiteur.php");
                 //ajoute la mention refusée sur le libellé du frais.
@@ -108,7 +109,6 @@ switch($action){
         case 'reporterFrais':{
                 $leVisiteur = $_SESSION['currentId'];
                 $leMois = $_SESSION['currentDate'];
-                $lesVisiteurs=$pdo->getLesVisiteursDisponibles();
                 $visiteurSelectionne = $leVisiteur;
                 include("vues/v_choisirVisiteur.php");
                 //reporte le frais au mois suivant.

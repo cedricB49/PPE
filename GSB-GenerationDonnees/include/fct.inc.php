@@ -260,10 +260,10 @@ function majFicheFrais($pdo)
 		$cumulMontantForfait = $ligne['cumul'];
 		$montantEngage = $cumulMontantHorsForfait + $cumulMontantForfait;
 		$etat = $uneFicheFrais['idEtat'];
-		if($etat == "CR" )
+		/*if($etat == "CR" )
 			$montantValide = 0;
 		else
-			$montantValide = $montantEngage*rand(80,100)/100;
+			$montantValide = $montantEngage*rand(80,100)/100;*/
 		$req = "update fichefrais set montantValide =$montantValide where
 		idVisiteur = '$idVisiteur' and mois='$mois'";
 		$pdo->exec($req);
