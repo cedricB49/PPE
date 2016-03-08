@@ -63,6 +63,23 @@ switch($action){
 			ajouterErreur("Les valeurs des frais doivent être numériques");
 			include("vues/v_erreurs.php");
 		}
+                //maj la catégorie de vehicule
+                $lesCles = array_keys($fraisForfait);
+                foreach($lesCles as $uneCle)
+                {
+                    if(strpos($uneCle, "KM") !== false)
+                    {
+                        $catActuelle = $uneCle;
+                        echo($uneCle);
+                    }
+                    
+                }
+                $nouvelleCat = $_POST['lstVoiture'];
+                if( isset($catActuelle) && $nouvelleCat != $catActuelle)
+                {
+                    $pdo->majVehicule($leVisiteur, $leMois, $catActuelle, $nouvelleCat);
+                }
+                
                 //récupère les informations en vue de la création de la vue
                 $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteur,$leMois);
 		$lesFraisForfait= $pdo->getLesFraisForfait($leVisiteur,$leMois);

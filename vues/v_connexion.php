@@ -14,7 +14,8 @@
 			  <input id="mdp"  type="password"  name="mdp" size="30" maxlength="45">
       </p>
          <input type="submit" value="Valider" name="valider">
-         <input type="reset" value="Annuler" name="annuler"> 
+         <input type="reset" value="Annuler" name="annuler">
+         <br><br><a href="index.php?uc=connexion&action=createUser"> enregistrer un nouvel utilisateur </a>
       </p>
 </form>
 

@@ -9,7 +9,7 @@ function getLesVisiteurs($pdo)
 }
 function getLesFichesFrais($pdo)
 {
-		$req = "select * from ficheFrais";
+		$req = "select * from fichefrais";
 		$res = $pdo->query($req);
 		$lesLignes = $res->fetchAll();
 		return $lesLignes;
@@ -180,22 +180,24 @@ function getDesFraisHorsForfait()
 function updateMdpVisiteur($pdo)
 {
 	$req = "select * from visiteur";
-		$res = $pdo->query($req);
-		$lesLignes = $res->fetchAll();
-		$lettres ="azertyuiopqsdfghjkmwxcvbn123456789";
-		foreach($lesLignes as $unVisiteur)
-		{
-			$mdp = "";
-			$id = $unVisiteur['id'];
-			for($i =1;$i<=5;$i++)
-			{
-				$uneLettrehasard = substr( $lettres,rand(33,1),1);
-				$mdp = $mdp.$uneLettrehasard;
-			}
-			
-			$req = "update visiteur set mdp ='$mdp' where visiteur.id ='$id' ";
-			$pdo->exec($req);
-		}
+        $res = $pdo->query($req);
+        $lesLignes = $res->fetchAll();
+        $lettres ="azertyuiopqsdfghjkmwxcvbn123456789";
+        foreach($lesLignes as $unVisiteur)
+        {
+                $mdp = "";
+                $id = $unVisiteur['id'];
+                for($i =1;$i<=5;$i++)
+                {
+                        $uneLettrehasard = substr( $lettres,rand(33,1),1);
+                        $mdp = $mdp.$uneLettrehasard;
+                }
+                echo(" <br>login =".$unVisiteur['login']." ; mdp =".$mdp." ");
+                $mdp = sha1($mdp);
+                $req = "update visiteur set mdp ='$mdp' where visiteur.id ='$id' ";
+                $pdo->exec($req);
+                
+        }
 
 
 }
@@ -247,23 +249,23 @@ function majFicheFrais($pdo)
 		$idVisiteur = $uneFicheFrais['idVisiteur'];
 		$mois =  $uneFicheFrais['mois'];
 		$dernierMois = getDernierMois($pdo, $idVisiteur);
-		$req = "select sum(montant) as cumul from ligneFraisHorsForfait where ligneFraisHorsForfait.idVisiteur = '$idVisiteur' 
-				and ligneFraisHorsForfait.mois = '$mois' ";
+		$req = "select sum(montant) as cumul from lignefraishorsforfait where lignefraishorsforfait.idVisiteur = '$idVisiteur' 
+				and lignefraishorsforfait.mois = '$mois' ";
 		$res = $pdo->query($req);
 		$ligne = $res->fetch();
 		$cumulMontantHorsForfait = $ligne['cumul'];
-		$req = "select sum(ligneFraisForfait.quantite * fraisForfait.montant) as cumul from ligneFraisForfait, FraisForfait where
-		ligneFraisForfait.idFraisForfait = fraisForfait.id   and   ligneFraisForfait.idVisiteur = '$idVisiteur' 
-				and ligneFraisForfait.mois = '$mois' ";
+		$req = "select sum(lignefraisforfait.quantite * fraisforfait.montant) as cumul from lignefraisforfait, fraisforfait where
+		lignefraisforfait.idFraisForfait = fraisforfait.id   and   lignefraisforfait.idVisiteur = '$idVisiteur' 
+				and lignefraisforfait.mois = '$mois' ";
 		$res = $pdo->query($req);
 		$ligne = $res->fetch();
 		$cumulMontantForfait = $ligne['cumul'];
 		$montantEngage = $cumulMontantHorsForfait + $cumulMontantForfait;
 		$etat = $uneFicheFrais['idEtat'];
-		/*if($etat == "CR" )
+		if($etat == "CR" )
 			$montantValide = 0;
 		else
-			$montantValide = $montantEngage*rand(80,100)/100;*/
+			$montantValide = $montantEngage;
 		$req = "update fichefrais set montantValide =$montantValide where
 		idVisiteur = '$idVisiteur' and mois='$mois'";
 		$pdo->exec($req);

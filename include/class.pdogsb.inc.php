@@ -146,8 +146,23 @@ class PdoGsb{
 			and lignefraisforfait.idfraisforfait = '$unIdFrais'";
 			PdoGsb::$monPdo->exec($req);
 		}
-		
 	}
+        
+        /**
+         * met à jour le type de vehicule pour le calcul des forfait kilometriques
+         * 
+         * @param type $idVisiteur
+         * @param type $mois
+         * @param type $previous categorie precedente de vehicule
+         * @param type $new nouvelle categorie de vehicule
+         */
+        public function majVehicule($idVisiteur, $mois, $previous, $new)
+        {
+            $req = "update lignefraisforfait set lignefraisforfait.idfraisforfait = '$new'
+                    where lignefraisforfait.idvisiteur = '$idVisiteur' and lignefraisforfait.mois = '$mois'
+                    and lignefraisforfait.idfraisforfait = '$previous'";
+            PdoGsb::$monPdo->exec($req);
+        }
 /**
  * met à jour le nombre de justificatifs de la table ficheFrais
  * pour le mois et le visiteur concerné
@@ -420,6 +435,28 @@ class PdoGsb{
             $lesLigne=array();
             $lesLigne = $res->fetchAll();
             return $lesLigne;
+        }
+        
+        /**
+         * enregistre un nouvel utilisateur dans la bdd
+         * 
+         * @param type $id
+         * @param type $nom
+         * @param type $prenom
+         * @param type $login
+         * @param type $mdp
+         * @param type $adresse
+         * @param type $cp
+         * @param type $ville
+         * @param type $date
+         * @param type $status 
+         */
+        public function creerNouvelUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville, $date, $status)
+        {
+            $mdp = sha1($mdp);
+            $req = "INSERT INTO `Visiteur` (`id`, `nom`, `prenom`, `login`, `mdp`, `adresse`, `cp`, `ville`, `dateEmbauche`, `status`) VALUES
+                    ('$id', '$nom', '$prenom', '$login', '$mdp', '$adresse', '$cp', '$ville', '$date', '$status')";
+            PdoGsb::$monPdo->exec($req);
         }
 }
 ?>

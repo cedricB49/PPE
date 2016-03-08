@@ -12,23 +12,29 @@
             <legend>Frais au forfait
             </legend>
               <table style="color:black;" border="1">
-                        <tr><th>Etape</th><th>Km </th><th>Nuité</th><th>Repas midi </th></tr>
-			<tr align="center">
-                            <?php
-                                //place les données dans un tableau.
-                                $valeurs = array();
-                                foreach ($lesFraisForfait as $unFrais)
-                                {
-                                    $idFrais = $unFrais['idfrais'];
-                                    $valeurs = $unFrais['quantite'];
-                                    $total += $valeurs * $unFrais['montant'];
-                                    ?>
-                                    <td width="80" ><input type="text" size="3" name="fraisForfait[<?php echo($idFrais) ?>]" value="<?php echo($valeurs) ?>" /></td>
-                                    <?php
-                                }
+                <tr><th>Etape</th><th>Km </th><th>Nuité</th><th>Repas midi </th></tr>
+                <tr align="center">
+                    <?php
+                        //place les données dans un tableau.
+                        $valeurs = array();
+                        foreach ($lesFraisForfait as $unFrais)
+                        {
+                            $idFrais = $unFrais['idfrais'];
+                            $valeurs = $unFrais['quantite'];
+                            $total += $valeurs * $unFrais['montant'];
                             ?>
-			</tr>
+                            <td width="80" ><input type="text" size="3" name="fraisForfait[<?php echo($idFrais) ?>]" value="<?php echo($valeurs) ?>" /></td>
+                            <?php
+                        }
+                    ?>
+                </tr>
             </table>
+              <select name="lstVoiture">
+                <option value="KM">Véhicule 4CV Diesel</option>
+                <option value="KM2">Véhicule 5/6CV Diesel</option>
+                <option value="KM3">Véhicule 4CV Essence</option>
+                <option value="KM4">Véhicule 5/6CV Essence</option>
+              </select>
        </fieldset>
           <p style="text-align: right">
             <input id="ok" type="submit" value="Valider" size="20" />
@@ -59,7 +65,15 @@
                     $date = $unFraisHorsForfait['date'];
                     $montant=$unFraisHorsForfait['montant'];
                     $idHorsFrais = $unFraisHorsForfait['id'];
-                    $total += $montant;
+                    if(strpos($libelle, "REFUSE") === false)
+                    {
+                        $total += $montant;
+                    }
+                    else
+                    {
+                        echo("montant refuse");
+                    }
+                    
         ?>		
             <tr>
                 <td style="color:black;"><?php echo $date ?></td>
