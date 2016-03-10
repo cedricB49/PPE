@@ -45,6 +45,16 @@ switch($action){
                     $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteur,$leMois);
                     $lesFraisForfait= $pdo->getLesFraisForfait($leVisiteur,$leMois);
                     $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($leVisiteur,$leMois);
+                    //$lesCles = array_keys($lesFraisForfait);
+                    foreach($lesFraisForfait as $unFraisForfait)
+                    {
+                        echo($unFraisForfait['idfrais']);
+                        if(strpos($unFraisForfait['idfrais'], "KM") !== false)
+                        {
+                            $catActuelle = $unFraisForfait['idfrais'];
+                        }
+                    }
+                    $_SESSION['catActuelle'] = $catActuelle;
                     include("vues/v_consulteFrais.php");
                 }
                 break;
@@ -64,22 +74,14 @@ switch($action){
 			include("vues/v_erreurs.php");
 		}
                 //maj la catégorie de vehicule
-                $lesCles = array_keys($fraisForfait);
-                foreach($lesCles as $uneCle)
-                {
-                    if(strpos($uneCle, "KM") !== false)
-                    {
-                        $catActuelle = $uneCle;
-                        echo($uneCle);
-                    }
-                    
-                }
+                $catActuelle = $_SESSION['catActuelle'];
                 $nouvelleCat = $_POST['lstVoiture'];
                 if( isset($catActuelle) && $nouvelleCat != $catActuelle)
                 {
                     $pdo->majVehicule($leVisiteur, $leMois, $catActuelle, $nouvelleCat);
+                    $_SESSION['catActuelle'] = $nouvelleCat;
+                    $catActuelle = $_SESSION['catActuelle'];
                 }
-                
                 //récupère les informations en vue de la création de la vue
                 $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($leVisiteur,$leMois);
 		$lesFraisForfait= $pdo->getLesFraisForfait($leVisiteur,$leMois);
@@ -91,6 +93,7 @@ switch($action){
         case 'validerFiche':{
                 $leVisiteur = $_SESSION['idVisiteur'];
                 $leMois = $_SESSION['currentDate'];
+                $catActuelle = $_SESSION['catActuelle'];
                 $nbJustif = $_POST['nbJustif'];
                 $montant = $_POST['montantCalcul'];
                 $visiteurSelectionne = $leVisiteur;
@@ -110,6 +113,7 @@ switch($action){
         case 'supprimerFrais':{
                 $leVisiteur = $_SESSION['currentId'];
                 $leMois = $_SESSION['currentDate'];
+                $catActuelle = $_SESSION['catActuelle'];
                 $visiteurSelectionne = $leVisiteur;
                 include("vues/v_choisirVisiteur.php");
                 //ajoute la mention refusée sur le libellé du frais.
@@ -126,6 +130,7 @@ switch($action){
         case 'reporterFrais':{
                 $leVisiteur = $_SESSION['currentId'];
                 $leMois = $_SESSION['currentDate'];
+                $catActuelle = $_SESSION['catActuelle'];
                 $visiteurSelectionne = $leVisiteur;
                 include("vues/v_choisirVisiteur.php");
                 //reporte le frais au mois suivant.

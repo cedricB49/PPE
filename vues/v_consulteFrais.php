@@ -29,12 +29,27 @@
                     ?>
                 </tr>
             </table>
-              <select name="lstVoiture">
-                <option value="KM">Véhicule 4CV Diesel</option>
-                <option value="KM2">Véhicule 5/6CV Diesel</option>
-                <option value="KM3">Véhicule 4CV Essence</option>
-                <option value="KM4">Véhicule 5/6CV Essence</option>
-              </select>
+            <p>
+            <select name="lstVoiture">
+            <?php
+            $voitures = prepareVehicleArray();
+            foreach($voitures as $uneVoiture)
+            {
+                if($catActuelle == $uneVoiture['id'])
+                {?>
+                <option selected value="<?php echo($uneVoiture['id']) ?>"><?php echo($uneVoiture['libelle']) ?></option>
+                <?php 
+                }
+                else
+                { ?>
+                <option value="<?php echo($uneVoiture['id']) ?>"><?php echo($uneVoiture['libelle']) ?></option>
+                <?php 
+                    
+                }
+            }
+            ?>
+            </select>
+            </p>
        </fieldset>
           <p style="text-align: right">
             <input id="ok" type="submit" value="Valider" size="20" />

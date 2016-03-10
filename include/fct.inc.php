@@ -245,4 +245,18 @@ function rewriteDate($date)
     $newDate = $numMois."/".$numAnnee;
     return $newDate;
 }
+
+/**
+ * Prepare un tableau pour la gestion du type de vehicule
+ * @return un tableau à deux dimensions
+ */
+function prepareVehicleArray()
+{
+    $lignes = [];
+    $lignes[] = ["id" => "KM1", "libelle" =>"Véhicule 4CV Diesel"];
+    $lignes[] = ["id" => "KM2", "libelle" =>"Véhicule 5/6CV Diesel"];
+    $lignes[] = ["id" => "KM3", "libelle" =>"Véhicule 4CV Essence"];
+    $lignes[] = ["id" => "KM4", "libelle" =>"Véhicule 5/6CV Essence"];
+    return $lignes;
+}
 ?>
