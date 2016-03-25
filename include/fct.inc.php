@@ -253,7 +253,7 @@ function rewriteDate($date)
 function prepareVehicleArray()
 {
     $lignes = [];
-    $lignes[] = ["id" => "KM1", "libelle" =>"Véhicule 4CV Diesel"];
+    $lignes[] = ["id" => "KM", "libelle" =>"Véhicule 4CV Diesel"];
     $lignes[] = ["id" => "KM2", "libelle" =>"Véhicule 5/6CV Diesel"];
     $lignes[] = ["id" => "KM3", "libelle" =>"Véhicule 4CV Essence"];
     $lignes[] = ["id" => "KM4", "libelle" =>"Véhicule 5/6CV Essence"];

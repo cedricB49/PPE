@@ -12,6 +12,7 @@
     {
         case 'selectionnerFiche':
         {
+            $_SESSION['currentDate']="";
             $lesCles = array_keys( $lesVisiteurs);
             $idSelectionne = $lesCles[0];
             include("vues/v_choisirFichePaiment.php");

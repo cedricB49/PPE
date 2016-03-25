@@ -53,7 +53,6 @@
        </fieldset>
           <p style="text-align: right">
             <input id="ok" type="submit" value="Valider" size="20" />
-            <input id="annuler" type="reset" value="Effacer" size="20" />
           </p> 
       </div>
       </form>
@@ -83,10 +82,6 @@
                     if(strpos($libelle, "REFUSE") === false)
                     {
                         $total += $montant;
-                    }
-                    else
-                    {
-                        echo("montant refuse");
                     }
                     
         ?>		

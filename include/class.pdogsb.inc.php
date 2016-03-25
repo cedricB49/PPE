@@ -15,11 +15,16 @@
  * @link       http://www.php.net/manual/fr/book.pdo.php
  */
 
-class PdoGsb{   		
-      	private static $serveur='mysql:host=localhost';
+/*private static $serveur='mysql:host=localhost';
       	private static $bdd='dbname=gsbV2';   		
       	private static $user='root' ;    		
-      	private static $mdp='' ;	
+      	private static $mdp='' ;*/
+
+class PdoGsb{   		
+      	private static $serveur='mysql:host=moondropkkmain.mysql.db';
+      	private static $bdd='dbname=moondropkkmain';   		
+      	private static $user='moondropkkmain' ;    		
+      	private static $mdp='dDe15Akd78e' ;	
 		private static $monPdo;
 		private static $monPdoGsb=null;
 /**
@@ -121,7 +126,7 @@ class PdoGsb{
  * @return un tableau associatif 
 */
 	public function getLesIdFrais(){
-		$req = "select fraisforfait.id as idfrais from fraisforfait order by fraisforfait.id";
+		$req = "select fraisforfait.id as idfrais from fraisforfait where not (fraisforfait.id = 'KM2' or fraisforfait.id = 'KM3' or fraisforfait.id = 'KM4') order by fraisforfait.id" ;
 		$res = PdoGsb::$monPdo->query($req);
 		$lesLignes = $res->fetchAll();
 		return $lesLignes;
@@ -361,8 +366,8 @@ class PdoGsb{
  * @return un tableau avec des champs de jointure entre une fiche de frais et la ligne d'état 
 */	
 	public function getLesInfosFicheFrais($idVisiteur,$mois){
-		$req = "select ficheFrais.idEtat as idEtat, ficheFrais.dateModif as dateModif, ficheFrais.nbJustificatifs as nbJustificatifs, 
-			ficheFrais.montantValide as montantValide, etat.libelle as libEtat from  fichefrais inner join Etat on ficheFrais.idEtat = Etat.id 
+		$req = "select fichefrais.idEtat as idEtat, fichefrais.dateModif as dateModif, fichefrais.nbJustificatifs as nbJustificatifs, 
+			fichefrais.montantValide as montantValide, etat.libelle as libEtat from  fichefrais inner join etat on fichefrais.idEtat = etat.id 
 			where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		$res = PdoGsb::$monPdo->query($req);
 		$laLigne = $res->fetch();
@@ -414,7 +419,7 @@ class PdoGsb{
          * @param type $montant
          */
         public function majMontantFicheFrais($idVisiteur,$mois, $montant){
-		$req = "update ficheFrais set montantValide = '$montant', dateModif = now() 
+		$req = "update fichefrais set montantValide = '$montant', dateModif = now() 
 		where fichefrais.idvisiteur ='$idVisiteur' and fichefrais.mois = '$mois'";
 		PdoGsb::$monPdo->exec($req);
 	}
@@ -427,9 +432,9 @@ class PdoGsb{
          */
         public function getFicheFraisEtat($etat)
         {
-            $req = "select visiteur.id as idVisiteur, ficheFrais.idEtat as idEtat, ficheFrais.dateModif as dateModif, ficheFrais.nbJustificatifs as nbJustificatifs, 
-			ficheFrais.montantValide as montantValide, ficheFrais.mois as mois, visiteur.nom as nom, visiteur.prenom as prenom 
-                        from  ficheFrais inner join visiteur on ficheFrais.idVisiteur = visiteur.id
+            $req = "select visiteur.id as idVisiteur, fichefrais.idEtat as idEtat, fichefrais.dateModif as dateModif, fichefrais.nbJustificatifs as nbJustificatifs, 
+			fichefrais.montantValide as montantValide, fichefrais.mois as mois, visiteur.nom as nom, visiteur.prenom as prenom 
+                        from  fichefrais inner join visiteur on fichefrais.idVisiteur = visiteur.id
 			where fichefrais.idEtat ='$etat'";
             $res = PdoGsb::$monPdo->query($req);
             $lesLigne=array();
@@ -454,7 +459,7 @@ class PdoGsb{
         public function creerNouvelUtilisateur($id, $nom, $prenom, $login, $mdp, $adresse, $cp, $ville, $date, $status)
         {
             $mdp = sha1($mdp);
-            $req = "INSERT INTO `Visiteur` (`id`, `nom`, `prenom`, `login`, `mdp`, `adresse`, `cp`, `ville`, `dateEmbauche`, `status`) VALUES
+            $req = "INSERT INTO `visiteur` (`id`, `nom`, `prenom`, `login`, `mdp`, `adresse`, `cp`, `ville`, `dateEmbauche`, `status`) VALUES
                     ('$id', '$nom', '$prenom', '$login', '$mdp', '$adresse', '$cp', '$ville', '$date', '$status')";
             PdoGsb::$monPdo->exec($req);
         }

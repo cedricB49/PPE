@@ -7,7 +7,7 @@ $lesVisiteurs=$pdo->getLesVisiteursDisponibles();
 
 switch($action){
 	case 'selectionnerVisiteur':{
-                
+                $_SESSION['currentDate']="";
                 //génère la liste des visiteurs disponibles.
 		$lesCles = array_keys( $lesVisiteurs);
 		$visiteurSelectionne = $lesCles[0];
@@ -48,7 +48,6 @@ switch($action){
                     //$lesCles = array_keys($lesFraisForfait);
                     foreach($lesFraisForfait as $unFraisForfait)
                     {
-                        echo($unFraisForfait['idfrais']);
                         if(strpos($unFraisForfait['idfrais'], "KM") !== false)
                         {
                             $catActuelle = $unFraisForfait['idfrais'];
